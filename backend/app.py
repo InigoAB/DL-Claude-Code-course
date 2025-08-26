@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 import os
 
 from config import config
@@ -43,13 +43,22 @@ class QueryRequest(BaseModel):
 class QueryResponse(BaseModel):
     """Response model for course queries"""
     answer: str
-    sources: List[str]
+    sources: List[Dict[str, Any]]  # Changed to support {text: str, link: Optional[str]}
     session_id: str
 
 class CourseStats(BaseModel):
     """Response model for course statistics"""
     total_courses: int
     course_titles: List[str]
+
+class NewSessionRequest(BaseModel):
+    """Request model for starting new session"""
+    old_session_id: Optional[str] = None
+
+class NewSessionResponse(BaseModel):
+    """Response model for new session"""
+    session_id: str
+    message: str
 
 # API Endpoints
 
@@ -81,6 +90,24 @@ async def get_course_stats():
         return CourseStats(
             total_courses=analytics["total_courses"],
             course_titles=analytics["course_titles"]
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/new-session", response_model=NewSessionResponse)
+async def start_new_session(request: NewSessionRequest):
+    """Start a new conversation session and optionally clear old one"""
+    try:
+        # Clear old session if provided
+        if request.old_session_id:
+            rag_system.session_manager.clear_session(request.old_session_id)
+        
+        # Create new session
+        new_session_id = rag_system.session_manager.create_session()
+        
+        return NewSessionResponse(
+            session_id=new_session_id,
+            message="New chat session started successfully"
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
