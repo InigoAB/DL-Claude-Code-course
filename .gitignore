@@ -32,7 +32,7 @@ Thumbs.db
 
 # Claude Code local configuration
 CLAUDE.local.md
-.claude/
+.claude/settings.local.json
 
 # Playwright MCP artifacts
 .playwright-mcp/
