@@ -25,6 +25,20 @@ uv add package-name
 uv run python script.py
 ```
 
+### Code Quality
+```bash
+# Format code automatically
+./scripts/format-code.sh
+
+# Check code quality (formatting, imports, linting)
+./scripts/quality-check.sh
+
+# Individual tools
+uv run black .          # Format code with Black
+uv run isort .           # Sort imports
+uv run flake8 .          # Run linting checks
+```
+
 ### Environment Setup
 Create `.env` file in root with:
 ```
@@ -96,12 +110,14 @@ Course transcripts in `docs/` folder are automatically loaded on startup:
 
 ### Development Notes
 
-- No test framework currently configured
+- Test framework configured with pytest
 - Uses `uv` for Python package management
 - Frontend served as static files from FastAPI
 - Development mode includes no-cache headers and auto-reload
 - Sessions are in-memory only (not persisted to disk)
 - ChromaDB data persists in `backend/chroma_db/` directory
+- Code quality tools configured: Black (formatting), isort (import sorting), flake8 (linting)
 - always use uv to run the server do not use pip directly
 - make sure to use uv to manage all dependencies
 - use uv to run python files or add any dependencies
+- run `./scripts/quality-check.sh` before committing code

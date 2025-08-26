@@ -1,17 +1,19 @@
-import pytest
-import tempfile
-import shutil
 import os
-from unittest.mock import Mock, MagicMock
-from typing import List, Dict, Any
+import shutil
 
 # Add parent directory to path to import modules
 import sys
+import tempfile
+from typing import Any, Dict, List
+from unittest.mock import MagicMock, Mock
+
+import pytest
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from models import Course, Lesson, CourseChunk
-from vector_store import SearchResults
 from config import Config
+from models import Course, CourseChunk, Lesson
+from vector_store import SearchResults
 
 
 @pytest.fixture
@@ -28,14 +30,22 @@ def test_config():
 def sample_course():
     """Create a sample course for testing"""
     lessons = [
-        Lesson(lesson_number=1, title="Introduction", lesson_link="https://example.com/lesson1"),
-        Lesson(lesson_number=2, title="Advanced Topics", lesson_link="https://example.com/lesson2")
+        Lesson(
+            lesson_number=1,
+            title="Introduction",
+            lesson_link="https://example.com/lesson1",
+        ),
+        Lesson(
+            lesson_number=2,
+            title="Advanced Topics",
+            lesson_link="https://example.com/lesson2",
+        ),
     ]
     return Course(
         title="Sample Course",
         course_link="https://example.com/course",
         instructor="Test Instructor",
-        lessons=lessons
+        lessons=lessons,
     )
 
 
@@ -47,20 +57,20 @@ def sample_course_chunks():
             content="This is the introduction to our sample course. We will cover basic concepts.",
             course_title="Sample Course",
             lesson_number=1,
-            chunk_index=0
+            chunk_index=0,
         ),
         CourseChunk(
             content="In this lesson, we dive deeper into advanced topics and practical applications.",
-            course_title="Sample Course", 
+            course_title="Sample Course",
             lesson_number=2,
-            chunk_index=1
+            chunk_index=1,
         ),
         CourseChunk(
             content="Here are some examples and case studies to illustrate the concepts.",
             course_title="Sample Course",
             lesson_number=2,
-            chunk_index=2
-        )
+            chunk_index=2,
+        ),
     ]
 
 
@@ -70,24 +80,20 @@ def mock_search_results():
     return SearchResults(
         documents=[
             "This is the introduction to our sample course. We will cover basic concepts.",
-            "In this lesson, we dive deeper into advanced topics and practical applications."
+            "In this lesson, we dive deeper into advanced topics and practical applications.",
         ],
         metadata=[
             {"course_title": "Sample Course", "lesson_number": 1, "chunk_index": 0},
-            {"course_title": "Sample Course", "lesson_number": 2, "chunk_index": 1}
+            {"course_title": "Sample Course", "lesson_number": 2, "chunk_index": 1},
         ],
-        distances=[0.1, 0.2]
+        distances=[0.1, 0.2],
     )
 
 
 @pytest.fixture
 def empty_search_results():
     """Create empty search results for testing"""
-    return SearchResults(
-        documents=[],
-        metadata=[],
-        distances=[]
-    )
+    return SearchResults(documents=[], metadata=[], distances=[])
 
 
 @pytest.fixture
@@ -103,7 +109,7 @@ def mock_vector_store():
     mock_store.search.return_value = SearchResults(
         documents=["Sample content"],
         metadata=[{"course_title": "Test Course", "lesson_number": 1}],
-        distances=[0.1]
+        distances=[0.1],
     )
     mock_store.get_lesson_link.return_value = "https://example.com/lesson1"
     return mock_store
@@ -113,7 +119,7 @@ def mock_vector_store():
 def mock_anthropic_client():
     """Create a mock Anthropic client for testing"""
     mock_client = Mock()
-    
+
     # Mock response with tool use
     mock_tool_response = Mock()
     mock_tool_response.stop_reason = "tool_use"
@@ -122,14 +128,16 @@ def mock_anthropic_client():
             type="tool_use",
             name="search_course_content",
             input={"query": "test query"},
-            id="tool_call_123"
+            id="tool_call_123",
         )
     ]
-    
+
     # Mock final response
     mock_final_response = Mock()
-    mock_final_response.content = [Mock(text="Here is the answer based on search results.")]
-    
+    mock_final_response.content = [
+        Mock(text="Here is the answer based on search results.")
+    ]
+
     mock_client.messages.create.side_effect = [mock_tool_response, mock_final_response]
     return mock_client
 
