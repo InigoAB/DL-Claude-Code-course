@@ -125,7 +125,8 @@ class RAGSystem:
             query=prompt,
             conversation_history=history,
             tools=self.tool_manager.get_tool_definitions(),
-            tool_manager=self.tool_manager
+            tool_manager=self.tool_manager,
+            max_rounds=self.config.MAX_TOOL_ROUNDS
         )
         
         # Get sources from the search tool

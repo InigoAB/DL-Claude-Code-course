@@ -258,7 +258,7 @@ class TestAIGenerator:
         assert "course materials" in generator.SYSTEM_PROMPT
         assert "Content Search Tool" in generator.SYSTEM_PROMPT
         assert "Course Outline Tool" in generator.SYSTEM_PROMPT
-        assert "One search per query maximum" in generator.SYSTEM_PROMPT
+        assert "Multi-Step Search Protocol" in generator.SYSTEM_PROMPT
 
     @patch('ai_generator.anthropic.Anthropic')
     def test_base_params_structure(self, mock_anthropic):
@@ -313,3 +313,245 @@ class TestAIGenerator:
         assert messages[0]["role"] == "user"
         assert messages[1]["role"] == "assistant"
         assert messages[2]["role"] == "user"
+
+    # Sequential Tool Calling Tests
+    @patch('ai_generator.anthropic.Anthropic')
+    def test_sequential_tool_calling_two_rounds(self, mock_anthropic):
+        """Test two-round sequential tool calling"""
+        # Round 1: tool use
+        mock_round1_response = Mock()
+        mock_round1_response.stop_reason = "tool_use"
+        mock_tool_block1 = Mock()
+        mock_tool_block1.type = "tool_use"
+        mock_tool_block1.name = "get_course_outline"
+        mock_tool_block1.input = {"course_title": "Course X"}
+        mock_tool_block1.id = "tool_1"
+        mock_round1_response.content = [mock_tool_block1]
+        
+        # Round 2: tool use
+        mock_round2_response = Mock()
+        mock_round2_response.stop_reason = "tool_use"
+        mock_tool_block2 = Mock()
+        mock_tool_block2.type = "tool_use"
+        mock_tool_block2.name = "search_course_content"
+        mock_tool_block2.input = {"query": "Advanced Functions"}
+        mock_tool_block2.id = "tool_2"
+        mock_round2_response.content = [mock_tool_block2]
+        
+        # Final response
+        mock_final_response = Mock()
+        mock_final_response.content = [Mock(text="Based on both searches, here's the answer.")]
+        
+        mock_client = Mock()
+        mock_client.messages.create.side_effect = [
+            mock_round1_response, 
+            mock_round2_response, 
+            mock_final_response
+        ]
+        mock_anthropic.return_value = mock_client
+        
+        # Mock tool manager
+        mock_tool_manager = Mock()
+        mock_tool_manager.execute_tool.side_effect = [
+            "Course X outline with lesson 4: Advanced Functions",
+            "Found courses covering Advanced Functions"
+        ]
+        
+        generator = AIGenerator("test-api-key", "claude-sonnet-4-20250514")
+        tools = [{"name": "get_course_outline"}, {"name": "search_course_content"}]
+        
+        result = generator.generate_response(
+            "Search for a course that discusses the same topic as lesson 4 of course X",
+            tools=tools,
+            tool_manager=mock_tool_manager,
+            max_rounds=2
+        )
+        
+        assert result == "Based on both searches, here's the answer."
+        assert mock_tool_manager.execute_tool.call_count == 2
+        assert mock_client.messages.create.call_count == 3  # 2 rounds + final
+
+    @patch('ai_generator.anthropic.Anthropic')
+    def test_sequential_tool_calling_early_termination(self, mock_anthropic):
+        """Test early termination when Claude doesn't use tools in first round"""
+        # Round 1: direct response (no tool use)
+        mock_round1_response = Mock()
+        mock_round1_response.stop_reason = "end_turn"
+        mock_round1_response.content = [Mock(text="I can answer this directly without tools.")]
+        
+        mock_client = Mock()
+        mock_client.messages.create.return_value = mock_round1_response
+        mock_anthropic.return_value = mock_client
+        
+        mock_tool_manager = Mock()
+        
+        generator = AIGenerator("test-api-key", "claude-sonnet-4-20250514")
+        tools = [{"name": "search_course_content"}]
+        
+        result = generator.generate_response(
+            "What is machine learning?",
+            tools=tools,
+            tool_manager=mock_tool_manager,
+            max_rounds=2
+        )
+        
+        assert result == "I can answer this directly without tools."
+        assert mock_tool_manager.execute_tool.call_count == 0
+        assert mock_client.messages.create.call_count == 1  # Only one round
+
+    @patch('ai_generator.anthropic.Anthropic')
+    def test_sequential_tool_calling_tool_error_handling(self, mock_anthropic):
+        """Test error handling when tool execution fails"""
+        # Round 1: tool use
+        mock_round1_response = Mock()
+        mock_round1_response.stop_reason = "tool_use"
+        mock_tool_block = Mock()
+        mock_tool_block.type = "tool_use"
+        mock_tool_block.name = "search_course_content"
+        mock_tool_block.input = {"query": "test"}
+        mock_tool_block.id = "tool_1"
+        mock_round1_response.content = [mock_tool_block]
+        
+        mock_client = Mock()
+        mock_client.messages.create.return_value = mock_round1_response
+        mock_anthropic.return_value = mock_client
+        
+        # Mock tool manager that raises error
+        mock_tool_manager = Mock()
+        mock_tool_manager.execute_tool.side_effect = Exception("Database connection failed")
+        
+        generator = AIGenerator("test-api-key", "claude-sonnet-4-20250514")
+        tools = [{"name": "search_course_content"}]
+        
+        result = generator.generate_response(
+            "Search for AI content",
+            tools=tools,
+            tool_manager=mock_tool_manager,
+            max_rounds=2
+        )
+        
+        assert "Tool execution failed: Database connection failed" in result
+        assert mock_client.messages.create.call_count == 1
+
+    @patch('ai_generator.anthropic.Anthropic')
+    def test_sequential_tool_calling_backward_compatibility(self, mock_anthropic):
+        """Test that max_rounds=1 uses single-round behavior"""
+        # Tool use response
+        mock_tool_response = Mock()
+        mock_tool_response.stop_reason = "tool_use"
+        mock_tool_block = Mock()
+        mock_tool_block.type = "tool_use"
+        mock_tool_block.name = "search_course_content"
+        mock_tool_block.input = {"query": "test"}
+        mock_tool_block.id = "tool_1"
+        mock_tool_response.content = [mock_tool_block]
+        
+        # Final response
+        mock_final_response = Mock()
+        mock_final_response.content = [Mock(text="Single round result.")]
+        
+        mock_client = Mock()
+        mock_client.messages.create.side_effect = [mock_tool_response, mock_final_response]
+        mock_anthropic.return_value = mock_client
+        
+        mock_tool_manager = Mock()
+        mock_tool_manager.execute_tool.return_value = "Search result"
+        
+        generator = AIGenerator("test-api-key", "claude-sonnet-4-20250514")
+        tools = [{"name": "search_course_content"}]
+        
+        result = generator.generate_response(
+            "Search query",
+            tools=tools,
+            tool_manager=mock_tool_manager,
+            max_rounds=1
+        )
+        
+        assert result == "Single round result."
+        assert mock_tool_manager.execute_tool.call_count == 1
+        assert mock_client.messages.create.call_count == 2
+
+    @patch('ai_generator.anthropic.Anthropic')
+    def test_sequential_tool_calling_max_rounds_reached(self, mock_anthropic):
+        """Test that final response is forced when max rounds reached"""
+        # Round 1: tool use
+        mock_round1_response = Mock()
+        mock_round1_response.stop_reason = "tool_use"
+        mock_tool_block1 = Mock()
+        mock_tool_block1.type = "tool_use"
+        mock_tool_block1.name = "search_course_content"
+        mock_tool_block1.input = {"query": "first search"}
+        mock_tool_block1.id = "tool_1"
+        mock_round1_response.content = [mock_tool_block1]
+        
+        # Round 2: tool use (would continue, but max rounds reached)
+        mock_round2_response = Mock()
+        mock_round2_response.stop_reason = "tool_use"
+        mock_tool_block2 = Mock()
+        mock_tool_block2.type = "tool_use"
+        mock_tool_block2.name = "search_course_content"
+        mock_tool_block2.input = {"query": "second search"}
+        mock_tool_block2.id = "tool_2"
+        mock_round2_response.content = [mock_tool_block2]
+        
+        # Final response without tools
+        mock_final_response = Mock()
+        mock_final_response.content = [Mock(text="Final answer after max rounds.")]
+        
+        mock_client = Mock()
+        mock_client.messages.create.side_effect = [
+            mock_round1_response,
+            mock_round2_response,
+            mock_final_response
+        ]
+        mock_anthropic.return_value = mock_client
+        
+        mock_tool_manager = Mock()
+        mock_tool_manager.execute_tool.side_effect = ["Result 1", "Result 2"]
+        
+        generator = AIGenerator("test-api-key", "claude-sonnet-4-20250514")
+        tools = [{"name": "search_course_content"}]
+        
+        result = generator.generate_response(
+            "Complex query",
+            tools=tools,
+            tool_manager=mock_tool_manager,
+            max_rounds=2
+        )
+        
+        assert result == "Final answer after max rounds."
+        assert mock_tool_manager.execute_tool.call_count == 2
+        assert mock_client.messages.create.call_count == 3
+
+    @patch('ai_generator.anthropic.Anthropic') 
+    def test_sequential_tool_calling_api_error(self, mock_anthropic):
+        """Test handling of API errors during sequential rounds"""
+        mock_client = Mock()
+        mock_client.messages.create.side_effect = Exception("API rate limit exceeded")
+        mock_anthropic.return_value = mock_client
+        
+        mock_tool_manager = Mock()
+        
+        generator = AIGenerator("test-api-key", "claude-sonnet-4-20250514")
+        tools = [{"name": "search_course_content"}]
+        
+        result = generator.generate_response(
+            "Search query",
+            tools=tools,
+            tool_manager=mock_tool_manager,
+            max_rounds=2
+        )
+        
+        assert "Error in round 1: API rate limit exceeded" in result
+
+    def test_system_prompt_updated_for_sequential_calling(self):
+        """Test that system prompt supports multi-round calling"""
+        generator = AIGenerator("test-key", "claude-sonnet-4-20250514")
+        
+        # Should no longer contain the single search restriction
+        assert "One search per query maximum" not in generator.SYSTEM_PROMPT
+        
+        # Should contain multi-round guidance
+        assert "Multi-Step Search Protocol" in generator.SYSTEM_PROMPT
+        assert "up to 2 tool calls" in generator.SYSTEM_PROMPT
+        assert "separate rounds" in generator.SYSTEM_PROMPT
