@@ -17,6 +17,8 @@ dependencies = [
     "black>=25.1.0",
     "isort>=6.0.1",
     "flake8>=7.3.0",
+    "httpx>=0.24.0",
+    "pytest-asyncio>=0.21.0",
 ]
 
 [tool.black]
@@ -53,3 +55,24 @@ exclude = [
     "build",
     "dist"
 ]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--disable-warnings",
+    "-v"
+]
+testpaths = ["backend/tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "unit: marks tests as unit tests",
+    "integration: marks tests as integration tests",
+    "api: marks tests as API tests",
+    "slow: marks tests as slow running",
+]
+asyncio_mode = "auto"

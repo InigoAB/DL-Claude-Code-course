@@ -1,5 +1,9 @@
 import os
 import shutil
+from unittest.mock import Mock, MagicMock, AsyncMock, patch
+from typing import List, Dict, Any
+from fastapi.testclient import TestClient
+import asyncio
 
 # Add parent directory to path to import modules
 import sys
@@ -157,3 +161,165 @@ def temp_chroma_path():
     # Clean up
     if os.path.exists(temp_dir):
         shutil.rmtree(temp_dir)
+
+
+@pytest.fixture
+def mock_rag_system():
+    """Create a mock RAG system for API testing"""
+    mock_rag = Mock()
+    mock_rag.query.return_value = (
+        "This is a test answer from the RAG system.",
+        [
+            {"text": "Sample content from course", "link": "https://example.com/lesson1"},
+            {"text": "Additional relevant content", "link": "https://example.com/lesson2"}
+        ]
+    )
+    mock_rag.get_course_analytics.return_value = {
+        "total_courses": 2,
+        "course_titles": ["Test Course 1", "Test Course 2"]
+    }
+    
+    # Mock session manager
+    mock_session_manager = Mock()
+    mock_session_manager.create_session.return_value = "test-session-123"
+    mock_session_manager.clear_session.return_value = None
+    mock_rag.session_manager = mock_session_manager
+    
+    return mock_rag
+
+
+@pytest.fixture
+def test_app(mock_rag_system):
+    """Create a test FastAPI app with mocked dependencies"""
+    from fastapi import FastAPI
+    from fastapi.middleware.cors import CORSMiddleware
+    from fastapi.middleware.trustedhost import TrustedHostMiddleware
+    from pydantic import BaseModel
+    from typing import List, Optional, Dict, Any
+    
+    # Create test app without static file mounting to avoid import issues
+    app = FastAPI(title="Test Course Materials RAG System")
+    
+    # Add middleware
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=["*"])
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+        expose_headers=["*"],
+    )
+    
+    # Define models inline to avoid import issues
+    class QueryRequest(BaseModel):
+        query: str
+        session_id: Optional[str] = None
+
+    class QueryResponse(BaseModel):
+        answer: str
+        sources: List[Dict[str, Any]]
+        session_id: str
+
+    class CourseStats(BaseModel):
+        total_courses: int
+        course_titles: List[str]
+
+    class NewSessionRequest(BaseModel):
+        old_session_id: Optional[str] = None
+
+    class NewSessionResponse(BaseModel):
+        session_id: str
+        message: str
+    
+    # Define API endpoints inline using the mock
+    @app.post("/api/query", response_model=QueryResponse)
+    async def query_documents(request: QueryRequest):
+        try:
+            session_id = request.session_id
+            if not session_id:
+                session_id = mock_rag_system.session_manager.create_session()
+            
+            answer, sources = mock_rag_system.query(request.query, session_id)
+            return QueryResponse(answer=answer, sources=sources, session_id=session_id)
+        except Exception as e:
+            from fastapi import HTTPException
+            raise HTTPException(status_code=500, detail=str(e))
+
+    @app.get("/api/courses", response_model=CourseStats)
+    async def get_course_stats():
+        try:
+            analytics = mock_rag_system.get_course_analytics()
+            return CourseStats(
+                total_courses=analytics["total_courses"],
+                course_titles=analytics["course_titles"]
+            )
+        except Exception as e:
+            from fastapi import HTTPException
+            raise HTTPException(status_code=500, detail=str(e))
+
+    @app.post("/api/new-session", response_model=NewSessionResponse)
+    async def start_new_session(request: NewSessionRequest):
+        try:
+            if request.old_session_id:
+                mock_rag_system.session_manager.clear_session(request.old_session_id)
+            
+            new_session_id = mock_rag_system.session_manager.create_session()
+            return NewSessionResponse(
+                session_id=new_session_id,
+                message="New chat session started successfully"
+            )
+        except Exception as e:
+            from fastapi import HTTPException
+            raise HTTPException(status_code=500, detail=str(e))
+    
+    @app.get("/")
+    async def root():
+        return {"message": "Course Materials RAG System API"}
+    
+    return app
+
+
+@pytest.fixture
+def client(test_app):
+    """Create a test client for the FastAPI app"""
+    return TestClient(test_app)
+
+
+@pytest.fixture
+def sample_query_request():
+    """Sample query request for API testing"""
+    return {
+        "query": "What are the main topics covered in the course?",
+        "session_id": "test-session-123"
+    }
+
+
+@pytest.fixture
+def sample_new_session_request():
+    """Sample new session request for API testing"""
+    return {
+        "old_session_id": "old-session-456"
+    }
+
+
+@pytest.fixture
+def expected_query_response():
+    """Expected query response for API testing"""
+    return {
+        "answer": "This is a test answer from the RAG system.",
+        "sources": [
+            {"text": "Sample content from course", "link": "https://example.com/lesson1"},
+            {"text": "Additional relevant content", "link": "https://example.com/lesson2"}
+        ],
+        "session_id": "test-session-123"
+    }
+
+
+@pytest.fixture
+def expected_course_stats():
+    """Expected course statistics for API testing"""
+    return {
+        "total_courses": 2,
+        "course_titles": ["Test Course 1", "Test Course 2"]
+    }
