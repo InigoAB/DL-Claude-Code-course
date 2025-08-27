@@ -220,7 +220,7 @@ export default function EmergingMarketCurrenciesChart() {
               y={1} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Parity/Normal", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Parity/Normal", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <Line

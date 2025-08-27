@@ -220,7 +220,7 @@ export default function HousingMarketChart() {
               y={1.2} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Healthy Construction", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Healthy Construction", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <ReferenceLine 
@@ -228,7 +228,7 @@ export default function HousingMarketChart() {
               y={5} 
               stroke="#ef4444" 
               strokeDasharray="3 3" 
-              label={{ value: "Affordability Threshold", position: "topRight", fontSize: 10 }}
+              label={{ value: "Affordability Threshold", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Bar

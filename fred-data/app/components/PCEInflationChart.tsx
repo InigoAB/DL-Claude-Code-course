@@ -228,14 +228,14 @@ export default function PCEInflationChart() {
               y={2} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Fed Target", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Fed Target", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <ReferenceLine 
               y={0} 
               stroke="#3b82f6" 
               strokeDasharray="3 3" 
-              label={{ value: "Zero Inflation", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Zero Inflation", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Area

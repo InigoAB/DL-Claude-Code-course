@@ -224,7 +224,7 @@ export default function EconomicGrowthChart() {
               y={20} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Pre-COVID GDP", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Pre-COVID GDP", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <Area

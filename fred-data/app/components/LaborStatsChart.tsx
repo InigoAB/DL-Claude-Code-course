@@ -166,14 +166,14 @@ export default function LaborStatsChart() {
               y={5} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Normal Range", position: "topRight", fontSize: 10 }}
+              label={{ value: "Normal Range", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <ReferenceLine 
               y={10} 
               stroke="#f59e0b" 
               strokeDasharray="3 3" 
-              label={{ value: "Crisis Level", position: "topRight", fontSize: 10 }}
+              label={{ value: "Crisis Level", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Area

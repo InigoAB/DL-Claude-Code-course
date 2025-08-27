@@ -173,14 +173,14 @@ export default function InterestRatesLongTermChart() {
               y={2.5} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Normal Range", position: "topRight", fontSize: 10 }}
+              label={{ value: "Normal Range", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <ReferenceLine 
               y={1.5} 
               stroke="#ef4444" 
               strokeDasharray="3 3" 
-              label={{ value: "Crisis Level", position: "topRight", fontSize: 10 }}
+              label={{ value: "Crisis Level", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Area

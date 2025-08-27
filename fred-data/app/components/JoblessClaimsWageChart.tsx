@@ -207,7 +207,7 @@ export default function JoblessClaimsWageChart() {
               y={300} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Healthy Level", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Healthy Level", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <ReferenceLine 
@@ -215,7 +215,7 @@ export default function JoblessClaimsWageChart() {
               y={3} 
               stroke="#10b981" 
               strokeDasharray="3 3" 
-              label={{ value: "Normal Wage Growth", position: "topRight", fontSize: 10 }}
+              label={{ value: "Normal Wage Growth", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Bar

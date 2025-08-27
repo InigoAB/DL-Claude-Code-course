@@ -224,7 +224,7 @@ export default function MajorCurrencyPairsChart() {
               y={1.0} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Parity", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Parity", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <ReferenceLine 
@@ -232,7 +232,7 @@ export default function MajorCurrencyPairsChart() {
               y={110} 
               stroke="#ef4444" 
               strokeDasharray="3 3" 
-              label={{ value: "JPY Normal", position: "topRight", fontSize: 10 }}
+              label={{ value: "JPY Normal", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Line

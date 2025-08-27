@@ -242,7 +242,7 @@ export default function ConsumerSpendingChart() {
               y={12} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Pre-COVID Spending", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Pre-COVID Spending", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <ReferenceLine 
@@ -250,7 +250,7 @@ export default function ConsumerSpendingChart() {
               y={100} 
               stroke="#10b981" 
               strokeDasharray="3 3" 
-              label={{ value: "Baseline Confidence", position: "topRight", fontSize: 10 }}
+              label={{ value: "Baseline Confidence", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Area

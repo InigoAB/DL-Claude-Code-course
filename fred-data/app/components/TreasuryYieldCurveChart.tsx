@@ -152,7 +152,7 @@ export default function TreasuryYieldCurveChart() {
               y={2.5} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Normal Level", position: "topRight", fontSize: 10 }}
+              label={{ value: "Normal Level", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <Line

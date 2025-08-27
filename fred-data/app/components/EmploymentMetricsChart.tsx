@@ -177,7 +177,7 @@ export default function EmploymentMetricsChart() {
               y={5} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Normal Unemployment", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Normal Unemployment", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <ReferenceLine 
@@ -185,7 +185,7 @@ export default function EmploymentMetricsChart() {
               y={63} 
               stroke="#3b82f6" 
               strokeDasharray="3 3" 
-              label={{ value: "Pre-COVID Participation", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Pre-COVID Participation", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Line

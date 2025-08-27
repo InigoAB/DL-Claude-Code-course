@@ -235,7 +235,7 @@ export default function ManufacturingBusinessChart() {
               y={12} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Pre-Crisis Employment", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Pre-Crisis Employment", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <ReferenceLine 
@@ -243,7 +243,7 @@ export default function ManufacturingBusinessChart() {
               y={90} 
               stroke="#10b981" 
               strokeDasharray="3 3" 
-              label={{ value: "Sentiment Baseline", position: "topRight", fontSize: 10 }}
+              label={{ value: "Sentiment Baseline", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <ReferenceLine 
@@ -251,7 +251,7 @@ export default function ManufacturingBusinessChart() {
               y={100} 
               stroke="#8b5cf6" 
               strokeDasharray="3 3" 
-              label={{ value: "Production Baseline", position: "topRight", fontSize: 10 }}
+              label={{ value: "Production Baseline", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Area

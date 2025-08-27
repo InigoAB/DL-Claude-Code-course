@@ -229,7 +229,7 @@ export default function DollarIndexChart() {
               y={100} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Neutral Level", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Neutral Level", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <ReferenceLine 
@@ -237,7 +237,7 @@ export default function DollarIndexChart() {
               y={0} 
               stroke="#3b82f6" 
               strokeDasharray="3 3" 
-              label={{ value: "Trade Balance", position: "topRight", fontSize: 10 }}
+              label={{ value: "Trade Balance", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Area

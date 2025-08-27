@@ -178,14 +178,14 @@ export default function FederalFundsRateChart() {
               y={2} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Neutral Rate", position: "topRight", fontSize: 10 }}
+              label={{ value: "Neutral Rate", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <ReferenceLine 
               y={0.25} 
               stroke="#ef4444" 
               strokeDasharray="3 3" 
-              label={{ value: "Emergency Level", position: "topRight", fontSize: 10 }}
+              label={{ value: "Emergency Level", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Area

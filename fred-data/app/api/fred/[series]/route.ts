@@ -62,10 +62,10 @@ async function fetchFredData(
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { series: string } }
+  { params }: { params: Promise<{ series: string }> }
 ) {
   try {
-    const series = params.series;
+    const { series } = await params;
     const searchParams = request.nextUrl.searchParams;
     const frequency = searchParams.get('frequency') || 'a';
     const startDate = searchParams.get('start') || '2019-01-01';

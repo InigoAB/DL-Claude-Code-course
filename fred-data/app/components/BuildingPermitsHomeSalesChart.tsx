@@ -220,7 +220,7 @@ export default function BuildingPermitsHomeSalesChart() {
               y={1.2} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Healthy Level", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Healthy Level", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <ReferenceLine 
@@ -228,7 +228,7 @@ export default function BuildingPermitsHomeSalesChart() {
               y={1} 
               stroke="#8b5cf6" 
               strokeDasharray="3 3" 
-              label={{ value: "Balanced Supply", position: "topRight", fontSize: 10 }}
+              label={{ value: "Balanced Supply", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Bar

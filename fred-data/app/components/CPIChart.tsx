@@ -169,7 +169,7 @@ export default function CPIChart() {
               y={280} 
               stroke="#f59e0b" 
               strokeDasharray="5 5" 
-              label={{ value: "Pre-Pandemic Level", position: "topRight", fontSize: 10 }}
+              label={{ value: "Pre-Pandemic Level", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Area
