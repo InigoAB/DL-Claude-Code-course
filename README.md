@@ -186,3 +186,56 @@ The refactored analysis framework successfully addresses all requirements:
 
 The framework transforms the original ad-hoc analysis into a professional, production-ready analytical tool suitable for ongoing business intelligence and decision-making.
 
+## E-commerce Analytics Dashboard
+
+The repository also includes a professional Streamlit dashboard that converts the EDA analysis into an interactive web application for real-time business intelligence.
+
+### Dashboard Features
+
+**Interactive Layout:**
+- **Header**: Business title with dual filtering system (years + time periods)
+- **KPI Cards**: Total Revenue, Monthly Growth, Average Order Value, Total Orders (with trend indicators)
+- **Analytics Grid**: 2x2 layout with revenue trends, top categories, geographic distribution, and customer satisfaction
+- **Experience Metrics**: Average delivery time and review scores with star ratings
+
+**Key Capabilities:**
+- **Dual Filtering System**: Year-over-year comparison plus time period selection (Q1-Q4, H1-H2, Full Year)
+- Real-time filtering affecting all metrics and visualizations
+- Professional styling with color-coded trend indicators (green/red)
+- Interactive Plotly charts with hover details and zoom capabilities
+- Responsive design optimized for business stakeholders
+
+### Running the Dashboard
+
+1. **Install dependencies** (includes Streamlit):
+   ```bash
+   uv sync
+   ```
+
+2. **Launch the dashboard**:
+   ```bash
+   cd data_analysis
+   uv run streamlit run dashboard.py
+   ```
+
+3. **Access the application**:
+   - Local: http://localhost:8501
+   - Network sharing: Add `--server.address=0.0.0.0`
+
+### Dashboard Structure
+
+The dashboard automatically:
+- Loads and validates all e-commerce datasets
+- Provides year-over-year comparison filtering
+- Calculates business metrics with trend analysis
+- Renders interactive visualizations using Plotly
+- Implements data caching for optimal performance
+
+**Chart Types:**
+- **Revenue Trend**: Line chart with current (solid) vs previous (dashed) periods
+- **Category Performance**: Horizontal bar chart with blue gradient
+- **Geographic Analysis**: US choropleth map with revenue distribution
+- **Customer Experience**: Satisfaction scores by delivery speed
+
+The dashboard transforms static analysis into dynamic business intelligence, enabling stakeholders to explore data interactively and make data-driven decisions.
+
