@@ -176,7 +176,7 @@ export default function BusinessInvestmentChart() {
               y={80} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Normal Utilization", position: "topRight", fontSize: 10 }}
+              label={{ value: "Normal Utilization", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <Bar

@@ -180,14 +180,14 @@ export default function InterestRatesShortTermChart() {
               y={2} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Neutral Rate", position: "topRight", fontSize: 10 }}
+              label={{ value: "Neutral Rate", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <ReferenceLine 
               y={0.5} 
               stroke="#3b82f6" 
               strokeDasharray="3 3" 
-              label={{ value: "QE Level", position: "topRight", fontSize: 10 }}
+              label={{ value: "QE Level", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Area

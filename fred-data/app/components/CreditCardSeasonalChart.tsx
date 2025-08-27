@@ -215,7 +215,7 @@ export default function CreditCardSeasonalChart() {
               y={3} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Pre-Crisis Level", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Pre-Crisis Level", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <ReferenceLine 
@@ -223,7 +223,7 @@ export default function CreditCardSeasonalChart() {
               y={100} 
               stroke="#8b5cf6" 
               strokeDasharray="3 3" 
-              label={{ value: "Seasonal Average", position: "topRight", fontSize: 10 }}
+              label={{ value: "Seasonal Average", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Area

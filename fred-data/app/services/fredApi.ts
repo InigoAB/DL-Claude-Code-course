@@ -196,10 +196,6 @@ class FredApiService {
   }
 
   // Additional Inflation indicators
-  async getPCEInflationData(): Promise<ChartDataPoint[]> {
-    // PCEPI - Personal Consumption Expenditures: Chain-type Price Index
-    return this.fetchFromApi('PCEPI', 'm');
-  }
 
   async getProducerPriceIndexData(): Promise<ChartDataPoint[]> {
     // PPIFIS - Producer Price Index for Finished Goods

@@ -170,7 +170,7 @@ export default function RetailSalesCategoryChart() {
               y={400} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Pre-COVID Level", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Pre-COVID Level", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <Bar

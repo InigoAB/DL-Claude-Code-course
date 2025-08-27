@@ -212,7 +212,7 @@ export default function RealEstateInvestmentChart() {
               y={200} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Historical Average", position: "topLeft", fontSize: 10 }}
+              label={{ value: "Historical Average", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <ReferenceLine 
@@ -220,7 +220,7 @@ export default function RealEstateInvestmentChart() {
               y={67} 
               stroke="#3b82f6" 
               strokeDasharray="3 3" 
-              label={{ value: "Target Ownership", position: "topRight", fontSize: 10 }}
+              label={{ value: "Target Ownership", position: "top", fontSize: 10 }}
               opacity={0.7}
             />
             <Area

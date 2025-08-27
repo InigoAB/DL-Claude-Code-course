@@ -154,7 +154,7 @@ export default function InflationComparisonChart() {
               y={280} 
               stroke="#6b7280" 
               strokeDasharray="5 5" 
-              label={{ value: "Pre-Pandemic Level", position: "topRight", fontSize: 10 }}
+              label={{ value: "Pre-Pandemic Level", position: "top", fontSize: 10 }}
               opacity={0.5}
             />
             <Area
