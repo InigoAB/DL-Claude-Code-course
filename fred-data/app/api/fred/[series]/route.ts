@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const FRED_API_KEY = 'cd1a81437fd59aa819376ca28841e8bc';
+const FRED_API_KEY = process.env.FRED_API_KEY || '';
 const FRED_BASE_URL = 'https://api.stlouisfed.org/fred/series/observations';
 
 interface FredDataPoint {
