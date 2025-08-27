@@ -1,8 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FRED Economic Indicators Dashboard
+
+A Next.js dashboard displaying real-time Federal Reserve Economic Data (FRED) with interactive charts and comprehensive economic analysis.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+1. **FRED API Key**: Get a free API key from [FRED API](https://fred.stlouisfed.org/docs/api/api_key.html)
+
+### Setup
+
+1. **Environment Variables**:
+   ```bash
+   cp .env.example .env.local
+   # Edit .env.local and add your FRED API key:
+   # FRED_API_KEY=your_actual_fred_api_key_here
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**:
 
 ```bash
 npm run dev
