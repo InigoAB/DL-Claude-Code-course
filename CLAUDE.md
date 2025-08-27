@@ -10,7 +10,29 @@ This repository contains three main applications:
 - **`data_analysis/`** - Streamlit dashboard for e-commerce data analysis  
 - **`fred-data/`** - Next.js dashboard for FRED economic indicators
 
-## RAG Chatbot Development Commands
+## Unified Project Setup
+
+This repository uses a **unified uv project** with a single virtual environment and dependency management for all Python applications.
+
+### Environment Setup
+Create `.env` file in repository root with:
+```
+ANTHROPIC_API_KEY=your_api_key_here
+```
+
+### Package Management
+```bash
+# Install/sync dependencies (run from repository root)
+uv sync
+
+# Add new dependency (affects all projects)
+uv add package-name
+
+# Run Python commands
+uv run python script.py
+```
+
+## RAG Chatbot Commands
 
 ### Running the Application
 ```bash
@@ -21,40 +43,32 @@ cd ragchatbot && ./run.sh
 cd ragchatbot/backend && uv run uvicorn app:app --reload --port 8000
 ```
 
-### Package Management
-```bash
-cd ragchatbot
-
-# Install/sync dependencies
-uv sync
-
-# Add new dependency
-uv add package-name
-
-# Run Python commands
-uv run python script.py
-```
-
 ### Code Quality
 ```bash
-cd ragchatbot
+# Format code automatically (run from repository root)
+uv run black ragchatbot/
 
-# Format code automatically
-./scripts/format-code.sh
+# Check code quality 
+cd ragchatbot && ./scripts/quality-check.sh
 
-# Check code quality (formatting, imports, linting)
-./scripts/quality-check.sh
-
-# Individual tools
-uv run black .          # Format code with Black
-uv run isort .           # Sort imports
-uv run flake8 .          # Run linting checks
+# Individual tools (from repository root)
+uv run black ragchatbot/          # Format ragchatbot code
+uv run isort ragchatbot/          # Sort imports
+uv run flake8 ragchatbot/         # Run linting checks
 ```
 
-### Environment Setup
-Create `.env` file in ragchatbot/ with:
+## Data Analysis Commands
+
+### Running Streamlit Dashboard
+```bash
+# From repository root
+uv run streamlit run data_analysis/dashboard.py
 ```
-ANTHROPIC_API_KEY=your_api_key_here
+
+### Running Jupyter Notebooks
+```bash
+# From repository root
+uv run jupyter notebook data_analysis/
 ```
 
 ## Architecture Overview
@@ -132,4 +146,5 @@ Course transcripts in `ragchatbot/docs/` folder are automatically loaded on star
 - always use uv to run the server do not use pip directly
 - make sure to use uv to manage all dependencies
 - use uv to run python files or add any dependencies
-- run `cd ragchatbot && ./scripts/quality-check.sh` before committing code
+- run `uv run black ragchatbot/ data_analysis/` and `cd ragchatbot && ./scripts/quality-check.sh` before committing code
+- use unified uv environment: run all Python commands with `uv run` from repository root

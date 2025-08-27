@@ -574,6 +574,61 @@ wheels = [
 ]
 
 [[package]]
+name = "dl-claude-code-course"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "anthropic" },
+    { name = "black" },
+    { name = "chromadb" },
+    { name = "fastapi" },
+    { name = "flake8" },
+    { name = "httpx" },
+    { name = "ipykernel" },
+    { name = "isort" },
+    { name = "jupyter" },
+    { name = "matplotlib" },
+    { name = "numpy" },
+    { name = "pandas" },
+    { name = "plotly" },
+    { name = "pytest" },
+    { name = "pytest-asyncio" },
+    { name = "pytest-mock" },
+    { name = "python-dotenv" },
+    { name = "python-multipart" },
+    { name = "seaborn" },
+    { name = "sentence-transformers" },
+    { name = "streamlit" },
+    { name = "uvicorn" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "anthropic", specifier = "==0.58.2" },
+    { name = "black", specifier = ">=25.1.0" },
+    { name = "chromadb", specifier = "==1.0.15" },
+    { name = "fastapi", specifier = "==0.116.1" },
+    { name = "flake8", specifier = ">=7.3.0" },
+    { name = "httpx", specifier = ">=0.24.0" },
+    { name = "ipykernel", specifier = ">=6.25.0" },
+    { name = "isort", specifier = ">=6.0.1" },
+    { name = "jupyter", specifier = ">=1.0.0" },
+    { name = "matplotlib", specifier = ">=3.7.0" },
+    { name = "numpy", specifier = ">=1.24.0" },
+    { name = "pandas", specifier = ">=2.0.0" },
+    { name = "plotly", specifier = ">=5.15.0" },
+    { name = "pytest", specifier = ">=8.4.1" },
+    { name = "pytest-asyncio", specifier = ">=0.21.0" },
+    { name = "pytest-mock", specifier = ">=3.14.1" },
+    { name = "python-dotenv", specifier = "==1.1.1" },
+    { name = "python-multipart", specifier = "==0.0.20" },
+    { name = "seaborn", specifier = ">=0.12.0" },
+    { name = "sentence-transformers", specifier = "==5.0.0" },
+    { name = "streamlit", specifier = ">=1.49.0" },
+    { name = "uvicorn", specifier = "==0.35.0" },
+]
+
+[[package]]
 name = "durationpy"
 version = "0.10"
 source = { registry = "https://pypi.org/simple" }
@@ -3002,61 +3057,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/0a/69/662169fdb92fb96ec3eaee218cf540a629d629c86d7993d9651226a6789b/starlette-0.47.1.tar.gz", hash = "sha256:aef012dd2b6be325ffa16698f9dc533614fb1cebd593a906b90dc1025529a79b", size = 2583072, upload-time = "2025-06-21T04:03:17.337Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/82/95/38ef0cd7fa11eaba6a99b3c4f5ac948d8bc6ff199aabd327a29cc000840c/starlette-0.47.1-py3-none-any.whl", hash = "sha256:5e11c9f5c7c3f24959edbf2dffdc01bba860228acf657129467d8a7468591527", size = 72747, upload-time = "2025-06-21T04:03:15.705Z" },
-]
-
-[[package]]
-name = "starting-codebase"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "anthropic" },
-    { name = "black" },
-    { name = "chromadb" },
-    { name = "fastapi" },
-    { name = "flake8" },
-    { name = "httpx" },
-    { name = "ipykernel" },
-    { name = "isort" },
-    { name = "jupyter" },
-    { name = "matplotlib" },
-    { name = "numpy" },
-    { name = "pandas" },
-    { name = "plotly" },
-    { name = "pytest" },
-    { name = "pytest-asyncio" },
-    { name = "pytest-mock" },
-    { name = "python-dotenv" },
-    { name = "python-multipart" },
-    { name = "seaborn" },
-    { name = "sentence-transformers" },
-    { name = "streamlit" },
-    { name = "uvicorn" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "anthropic", specifier = "==0.58.2" },
-    { name = "black", specifier = ">=25.1.0" },
-    { name = "chromadb", specifier = "==1.0.15" },
-    { name = "fastapi", specifier = "==0.116.1" },
-    { name = "flake8", specifier = ">=7.3.0" },
-    { name = "httpx", specifier = ">=0.24.0" },
-    { name = "ipykernel", specifier = ">=6.25.0" },
-    { name = "isort", specifier = ">=6.0.1" },
-    { name = "jupyter", specifier = ">=1.0.0" },
-    { name = "matplotlib", specifier = ">=3.7.0" },
-    { name = "numpy", specifier = ">=1.24.0" },
-    { name = "pandas", specifier = ">=2.0.0" },
-    { name = "plotly", specifier = ">=5.15.0" },
-    { name = "pytest", specifier = ">=8.4.1" },
-    { name = "pytest-asyncio", specifier = ">=0.21.0" },
-    { name = "pytest-mock", specifier = ">=3.14.1" },
-    { name = "python-dotenv", specifier = "==1.1.1" },
-    { name = "python-multipart", specifier = "==0.0.20" },
-    { name = "seaborn", specifier = ">=0.12.0" },
-    { name = "sentence-transformers", specifier = "==5.0.0" },
-    { name = "streamlit", specifier = ">=1.49.0" },
-    { name = "uvicorn", specifier = "==0.35.0" },
 ]
 
 [[package]]

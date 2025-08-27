@@ -25,21 +25,41 @@ Modern Next.js dashboard for Federal Reserve Economic Data visualization.
 
 ## Quick Start Guide
 
+### Prerequisites
+- **Python Projects**: Python 3.13+, uv package manager, Anthropic API key
+- **FRED Dashboard**: Node.js 18+, npm
+- **For Windows**: Use Git Bash for shell commands
+
+### 🔧 Unified Python Environment Setup
+This repository uses a **unified uv project** with single dependency management:
+
+```bash
+# 1. Clone repository
+git clone https://github.com/InigoAB/DL-Claude-Code-course.git
+cd DL-Claude-Code-course
+
+# 2. Set up environment variables
+echo "ANTHROPIC_API_KEY=your_key_here" > .env
+
+# 3. Install all Python dependencies
+uv sync
+```
+
 ### 🤖 RAG Chatbot
 ```bash
-cd ragchatbot
-echo "ANTHROPIC_API_KEY=your_key_here" > .env
-uv sync
-./run.sh
+cd ragchatbot && ./run.sh
 # Access: http://localhost:8000
 ```
 
 ### 📊 Data Analysis Dashboard
 ```bash
-cd data_analysis
-uv sync
-uv run streamlit run dashboard.py
+uv run streamlit run data_analysis/dashboard.py
 # Access: http://localhost:8501
+```
+
+### 📊 Jupyter Notebooks
+```bash
+uv run jupyter notebook data_analysis/
 ```
 
 ### 📈 FRED Economic Dashboard
@@ -49,12 +69,6 @@ npm install
 npm run dev
 # Access: http://localhost:3000
 ```
-
-## Prerequisites
-
-- **For RAG Chatbot & Data Analysis**: Python 3.13+, uv package manager, Anthropic API key
-- **For FRED Dashboard**: Node.js 18+, npm
-- **For Windows**: Use Git Bash for shell commands
 
 ## E-commerce Data Analysis
 

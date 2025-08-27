@@ -1,7 +1,7 @@
 [project]
-name = "starting-codebase"
+name = "dl-claude-code-course"
 version = "0.1.0"
-description = "Add your description here"
+description = "Multi-application repository with RAG chatbot, e-commerce analytics, and FRED economic dashboard"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -49,7 +49,7 @@ exclude = '''
 profile = "black"
 multi_line_output = 3
 line_length = 88
-known_first_party = ["backend"]
+known_first_party = ["ragchatbot"]
 
 [tool.flake8]
 max-line-length = 88
@@ -73,7 +73,7 @@ addopts = [
     "--disable-warnings",
     "-v"
 ]
-testpaths = ["backend/tests"]
+testpaths = ["ragchatbot/backend/tests"]
 python_files = ["test_*.py", "*_test.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
