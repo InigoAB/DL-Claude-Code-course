@@ -194,6 +194,82 @@ class FredApiService {
     // BOPGSTB - Trade Balance: Goods and Services, Balance of Payments Basis
     return this.fetchFromApi('BOPGSTB', 'm');
   }
+
+  // Additional Inflation indicators
+  async getPCEInflationData(): Promise<ChartDataPoint[]> {
+    // PCEPI - Personal Consumption Expenditures: Chain-type Price Index
+    return this.fetchFromApi('PCEPI', 'm');
+  }
+
+  async getProducerPriceIndexData(): Promise<ChartDataPoint[]> {
+    // PPIFIS - Producer Price Index for Finished Goods
+    return this.fetchFromApi('PPIFIS', 'm');
+  }
+
+  // Additional Employment indicators
+  async getInitialJoblessClaimsData(): Promise<ChartDataPoint[]> {
+    // ICSA - Initial Claims
+    return this.fetchFromApi('ICSA', 'w');
+  }
+
+  async getAverageHourlyEarningsData(): Promise<ChartDataPoint[]> {
+    // AHETPI - Average Hourly Earnings of Production and Nonsupervisory Employees
+    return this.fetchFromApi('AHETPI', 'm');
+  }
+
+  // Additional Economic Growth indicators  
+  async getManufacturingEmploymentData(): Promise<ChartDataPoint[]> {
+    // MANEMP - All Employees, Manufacturing
+    return this.fetchFromApi('MANEMP', 'm');
+  }
+
+  async getConsumerSentimentData(): Promise<ChartDataPoint[]> {
+    // UMCSENT - University of Michigan: Consumer Sentiment
+    return this.fetchFromApi('UMCSENT', 'm');
+  }
+
+  // Additional Housing indicators
+  async getBuildingPermitsData(): Promise<ChartDataPoint[]> {
+    // PERMIT - New Private Housing Units Authorized by Building Permits
+    return this.fetchFromApi('PERMIT', 'm');
+  }
+
+  async getExistingHomeSalesData(): Promise<ChartDataPoint[]> {
+    // EXHOSLUSM495S - Existing Home Sales
+    return this.fetchFromApi('EXHOSLUSM495S', 'm');
+  }
+
+  // Additional Consumer Spending indicators
+  async getCreditCardSpendingData(): Promise<ChartDataPoint[]> {
+    // CCPIC - Consumer Credit Outstanding
+    return this.fetchFromApi('TOTALSL', 'm');
+  }
+
+  async getSeasonalRetailSalesData(): Promise<ChartDataPoint[]> {
+    // RSAFSNA - Retail Sales: Total (Not Seasonally Adjusted)
+    return this.fetchFromApi('RSAFSNA', 'm');
+  }
+
+  // Additional Exchange Rate indicators
+  async getCanadianDollarRateData(): Promise<ChartDataPoint[]> {
+    // DEXCAUS - Canada / U.S. Foreign Exchange Rate
+    return this.fetchFromApi('DEXCAUS', 'm');
+  }
+
+  async getMexicanPesoRateData(): Promise<ChartDataPoint[]> {
+    // DEXMXUS - Mexico / U.S. Foreign Exchange Rate
+    return this.fetchFromApi('DEXMXUS', 'm');
+  }
+
+  async getBrazilianRealRateData(): Promise<ChartDataPoint[]> {
+    // DEXBZUS - Brazil / U.S. Foreign Exchange Rate
+    return this.fetchFromApi('DEXBZUS', 'm');
+  }
+
+  async getIndianRupeeRateData(): Promise<ChartDataPoint[]> {
+    // DEXINUS - India / U.S. Foreign Exchange Rate
+    return this.fetchFromApi('DEXINUS', 'm');
+  }
 }
 
 export const fredApi = new FredApiService();

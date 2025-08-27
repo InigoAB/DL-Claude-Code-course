@@ -17,6 +17,12 @@ import ConsumerSpendingChart from './ConsumerSpendingChart';
 import RetailSalesCategoryChart from './RetailSalesCategoryChart';
 import MajorCurrencyPairsChart from './MajorCurrencyPairsChart';
 import DollarIndexChart from './DollarIndexChart';
+import PCEInflationChart from './PCEInflationChart';
+import JoblessClaimsWageChart from './JoblessClaimsWageChart';
+import ManufacturingBusinessChart from './ManufacturingBusinessChart';
+import BuildingPermitsHomeSalesChart from './BuildingPermitsHomeSalesChart';
+import CreditCardSeasonalChart from './CreditCardSeasonalChart';
+import EmergingMarketCurrenciesChart from './EmergingMarketCurrenciesChart';
 import Sidebar from './Sidebar';
 
 type CategoryType = 'Key Indicators' | 'Inflation' | 'Employment' | 'Interest Rates' | 'Economic Growth' | 'Exchange Rates' | 'Housing' | 'Consumer Spending';
@@ -144,17 +150,14 @@ export default function Dashboard() {
             <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 h-[520px] shadow-lg border border-slate-200/50 hover:shadow-xl transition-all duration-300 hover:bg-white/95 col-span-full">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-slate-800 font-inter">
-                  More Inflation Charts Coming Soon
+                  PCE Inflation & Producer Prices
                 </h2>
-                <div className="text-sm text-slate-500 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">
-                  In Development
+                <div className="text-sm text-slate-500 bg-orange-50 px-3 py-1 rounded-full border border-orange-100">
+                  Advanced Analysis
                 </div>
               </div>
-              <div className="h-[430px] flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">📈</div>
-                  <p className="text-slate-500 font-inter">PCE Inflation, Producer Prices, and more charts coming soon...</p>
-                </div>
+              <div className="h-[430px]">
+                <PCEInflationChart />
               </div>
             </div>
           </>
@@ -255,17 +258,14 @@ export default function Dashboard() {
             <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 h-[520px] shadow-lg border border-slate-200/50 hover:shadow-xl transition-all duration-300 hover:bg-white/95 col-span-full">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-slate-800 font-inter">
-                  Additional Employment Charts Coming Soon
+                  Jobless Claims & Wage Growth
                 </h2>
-                <div className="text-sm text-slate-500 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">
-                  In Development
+                <div className="text-sm text-slate-500 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
+                  Labor Market Dynamics
                 </div>
               </div>
-              <div className="h-[430px] flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">👥</div>
-                  <p className="text-slate-500 font-inter">Weekly jobless claims, wage growth, and sector employment data coming soon...</p>
-                </div>
+              <div className="h-[430px]">
+                <JoblessClaimsWageChart />
               </div>
             </div>
           </>
@@ -305,17 +305,14 @@ export default function Dashboard() {
             <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 h-[520px] shadow-lg border border-slate-200/50 hover:shadow-xl transition-all duration-300 hover:bg-white/95 col-span-full">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-slate-800 font-inter">
-                  Additional Growth Metrics Coming Soon
+                  Manufacturing PMI & Business Confidence
                 </h2>
-                <div className="text-sm text-slate-500 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">
-                  In Development
+                <div className="text-sm text-slate-500 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
+                  Leading Indicators
                 </div>
               </div>
-              <div className="h-[430px] flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">📊</div>
-                  <p className="text-slate-500 font-inter">Manufacturing output, business confidence, and trade balance charts coming soon...</p>
-                </div>
+              <div className="h-[430px]">
+                <ManufacturingBusinessChart />
               </div>
             </div>
           </>
@@ -355,17 +352,14 @@ export default function Dashboard() {
             <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 h-[520px] shadow-lg border border-slate-200/50 hover:shadow-xl transition-all duration-300 hover:bg-white/95 col-span-full">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-slate-800 font-inter">
-                  Additional Housing Metrics Coming Soon
+                  Building Permits & Home Sales Activity
                 </h2>
-                <div className="text-sm text-slate-500 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">
-                  In Development
+                <div className="text-sm text-slate-500 bg-amber-50 px-3 py-1 rounded-full border border-amber-100">
+                  Construction Pipeline
                 </div>
               </div>
-              <div className="h-[430px] flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">🏘️</div>
-                  <p className="text-slate-500 font-inter">Regional home prices, rental markets, and construction permits coming soon...</p>
-                </div>
+              <div className="h-[430px]">
+                <BuildingPermitsHomeSalesChart />
               </div>
             </div>
           </>
@@ -405,17 +399,14 @@ export default function Dashboard() {
             <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 h-[520px] shadow-lg border border-slate-200/50 hover:shadow-xl transition-all duration-300 hover:bg-white/95 col-span-full">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-slate-800 font-inter">
-                  Additional Consumer Metrics Coming Soon
+                  Credit Card Spending & Seasonal Trends
                 </h2>
-                <div className="text-sm text-slate-500 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">
-                  In Development
+                <div className="text-sm text-slate-500 bg-rose-50 px-3 py-1 rounded-full border border-rose-100">
+                  Credit & Seasonality
                 </div>
               </div>
-              <div className="h-[430px] flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">💳</div>
-                  <p className="text-slate-500 font-inter">Credit card spending, e-commerce data, and seasonal trends coming soon...</p>
-                </div>
+              <div className="h-[430px]">
+                <CreditCardSeasonalChart />
               </div>
             </div>
           </>
@@ -455,17 +446,14 @@ export default function Dashboard() {
             <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 h-[520px] shadow-lg border border-slate-200/50 hover:shadow-xl transition-all duration-300 hover:bg-white/95 col-span-full">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-slate-800 font-inter">
-                  Additional Exchange Rate Metrics Coming Soon
+                  Emerging Market Currencies
                 </h2>
-                <div className="text-sm text-slate-500 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">
-                  In Development
+                <div className="text-sm text-slate-500 bg-teal-50 px-3 py-1 rounded-full border border-teal-100">
+                  Global Markets
                 </div>
               </div>
-              <div className="h-[430px] flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">🌍</div>
-                  <p className="text-slate-500 font-inter">Emerging market currencies, commodity currencies, and central bank interventions coming soon...</p>
-                </div>
+              <div className="h-[430px]">
+                <EmergingMarketCurrenciesChart />
               </div>
             </div>
           </>

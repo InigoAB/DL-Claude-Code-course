@@ -76,19 +76,19 @@ export async function GET(
       // Key Indicators
       'CPIAUCSL', 'UNRATE', 'DGS10', 'DGS3MO',
       // Inflation
-      'CPILFESL', 'CPIULFSL', 'PCEPILFE', 'CPIFABSL',
+      'CPILFESL', 'CPIULFSL', 'PCEPILFE', 'CPIFABSL', 'PCEPI', 'PPIFIS',
       // Employment  
-      'PAYEMS', 'CIVPART', 'EMRATIO', 'AWHMAN',
+      'PAYEMS', 'CIVPART', 'EMRATIO', 'AWHMAN', 'ICSA', 'AHETPI',
       // Interest Rates
       'DGS1MO', 'DGS2', 'DGS5', 'DGS30', 'FEDFUNDS',
       // Economic Growth
-      'GDP', 'GDPC1', 'GDPPOT', 'INDPRO', 'GPDI', 'TCU', 'OPHNFB',
+      'GDP', 'GDPC1', 'GDPPOT', 'INDPRO', 'GPDI', 'TCU', 'OPHNFB', 'MANEMP',
       // Exchange Rates
-      'DEXUSEU', 'DEXJPUS', 'DEXUSUK', 'DEXCHUS', 'BOPGSTB',
+      'DEXUSEU', 'DEXJPUS', 'DEXUSUK', 'DEXCHUS', 'BOPGSTB', 'DEXCAUS', 'DEXMXUS', 'DEXBZUS', 'DEXINUS',
       // Housing
-      'HOUST', 'CSUSHPISA', 'MORTGAGE30US', 'RHORUSQ156N',
+      'HOUST', 'CSUSHPISA', 'MORTGAGE30US', 'RHORUSQ156N', 'PERMIT', 'EXHOSLUSM495S',
       // Consumer Spending
-      'PCE', 'PCEDG', 'PCESV', 'RSAFS', 'UMCSENT'
+      'PCE', 'PCEDG', 'PCESV', 'RSAFS', 'UMCSENT', 'TOTALSL', 'RSAFSNA'
     ];
     if (!validSeries.includes(series.toUpperCase())) {
       return NextResponse.json(
