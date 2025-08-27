@@ -2,19 +2,29 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Development Commands
+## Repository Structure
+
+This repository contains three main applications:
+
+- **`ragchatbot/`** - RAG (Retrieval-Augmented Generation) system for course materials
+- **`data_analysis/`** - Streamlit dashboard for e-commerce data analysis  
+- **`fred-data/`** - Next.js dashboard for FRED economic indicators
+
+## RAG Chatbot Development Commands
 
 ### Running the Application
 ```bash
 # Quick start (recommended)
-./run.sh
+cd ragchatbot && ./run.sh
 
 # Manual start
-cd backend && uv run uvicorn app:app --reload --port 8000
+cd ragchatbot/backend && uv run uvicorn app:app --reload --port 8000
 ```
 
 ### Package Management
 ```bash
+cd ragchatbot
+
 # Install/sync dependencies
 uv sync
 
@@ -27,6 +37,8 @@ uv run python script.py
 
 ### Code Quality
 ```bash
+cd ragchatbot
+
 # Format code automatically
 ./scripts/format-code.sh
 
@@ -40,7 +52,7 @@ uv run flake8 .          # Run linting checks
 ```
 
 ### Environment Setup
-Create `.env` file in root with:
+Create `.env` file in ragchatbot/ with:
 ```
 ANTHROPIC_API_KEY=your_api_key_here
 ```
@@ -57,7 +69,7 @@ The system uses a **tool-based approach** where Claude decides when to search co
 
 ### Key Components
 
-**Backend (`backend/`):**
+**Backend (`ragchatbot/backend/`):**
 - `rag_system.py` - **Main orchestrator** that coordinates all components and handles the query lifecycle
 - `ai_generator.py` - Anthropic Claude integration with tool support and system prompting
 - `vector_store.py` - ChromaDB interface with semantic search capabilities  
@@ -66,7 +78,7 @@ The system uses a **tool-based approach** where Claude decides when to search co
 - `session_manager.py` - Conversation history and session persistence
 - `app.py` - FastAPI application with static file serving for frontend
 
-**Frontend (`frontend/`):**
+**Frontend (`ragchatbot/frontend/`):**
 - Vanilla HTML/CSS/JavaScript chat interface
 - Communicates via `/api/query` and `/api/courses` endpoints
 
@@ -78,7 +90,7 @@ The system uses a **tool-based approach** where Claude decides when to search co
 
 **Session Management**: Each conversation maintains history through SessionManager for context continuity
 
-### Configuration (`backend/config.py`)
+### Configuration (`ragchatbot/backend/config.py`)
 
 All settings centralized in Config dataclass:
 - Anthropic model: `claude-sonnet-4-20250514`
@@ -87,7 +99,7 @@ All settings centralized in Config dataclass:
 - ChromaDB path: `./chroma_db`
 - Max search results: 5, Max conversation history: 2
 
-### Data Models (`backend/models.py`)
+### Data Models (`ragchatbot/backend/models.py`)
 
 **Hierarchical structure**: Course → Lesson → CourseChunk
 - Course: title (unique ID), instructor, lessons, course_link
@@ -103,7 +115,7 @@ The application uses Anthropic's tool calling feature:
 
 ### Document Storage
 
-Course transcripts in `docs/` folder are automatically loaded on startup:
+Course transcripts in `ragchatbot/docs/` folder are automatically loaded on startup:
 - Supports `.txt`, `.pdf`, `.docx` files
 - Processed into chunks and stored in ChromaDB with embeddings
 - Metadata includes course title, lesson numbers, and source attribution
@@ -115,9 +127,9 @@ Course transcripts in `docs/` folder are automatically loaded on startup:
 - Frontend served as static files from FastAPI
 - Development mode includes no-cache headers and auto-reload
 - Sessions are in-memory only (not persisted to disk)
-- ChromaDB data persists in `backend/chroma_db/` directory
+- ChromaDB data persists in `ragchatbot/backend/chroma_db/` directory
 - Code quality tools configured: Black (formatting), isort (import sorting), flake8 (linting)
 - always use uv to run the server do not use pip directly
 - make sure to use uv to manage all dependencies
 - use uv to run python files or add any dependencies
-- run `./scripts/quality-check.sh` before committing code
+- run `cd ragchatbot && ./scripts/quality-check.sh` before committing code

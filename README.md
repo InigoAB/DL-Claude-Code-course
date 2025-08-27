@@ -1,58 +1,60 @@
-# Course Materials RAG System
+# DL Claude Code Course - Multi-Application Repository
 
-A Retrieval-Augmented Generation (RAG) system designed to answer questions about course materials using semantic search and AI-powered responses.
+This repository contains three main applications showcasing different aspects of data analysis and AI-powered interfaces:
 
-## Overview
+## Applications Overview
 
-This application is a full-stack web application that enables users to query course materials and receive intelligent, context-aware responses. It uses ChromaDB for vector storage, Anthropic's Claude for AI generation, and provides a web interface for interaction.
+### 🤖 RAG Chatbot (`ragchatbot/`)
+A Retrieval-Augmented Generation system for course materials with intelligent search capabilities.
+- **Tech Stack**: FastAPI, ChromaDB, Anthropic Claude, HTML/CSS/JS
+- **Features**: Semantic search, tool-based AI, session management
+- **Use Case**: Interactive course material exploration
 
+### 📊 Data Analysis (`data_analysis/`)
+Comprehensive e-commerce analytics framework with Jupyter notebooks and Streamlit dashboard.
+- **Tech Stack**: Python, Pandas, Plotly, Streamlit, Jupyter
+- **Features**: Business metrics, interactive dashboard, configurable analysis
+- **Use Case**: E-commerce business intelligence
+
+### 📈 FRED Economic Dashboard (`fred-data/`)
+Modern Next.js dashboard for Federal Reserve Economic Data visualization.
+- **Tech Stack**: Next.js, TypeScript, Tailwind CSS, Recharts
+- **Features**: Real-time economic indicators, responsive design, comprehensive testing
+- **Use Case**: Economic data monitoring and analysis
+
+
+## Quick Start Guide
+
+### 🤖 RAG Chatbot
+```bash
+cd ragchatbot
+echo "ANTHROPIC_API_KEY=your_key_here" > .env
+uv sync
+./run.sh
+# Access: http://localhost:8000
+```
+
+### 📊 Data Analysis Dashboard
+```bash
+cd data_analysis
+uv sync
+uv run streamlit run dashboard.py
+# Access: http://localhost:8501
+```
+
+### 📈 FRED Economic Dashboard
+```bash
+cd fred-data
+npm install
+npm run dev
+# Access: http://localhost:3000
+```
 
 ## Prerequisites
 
-- Python 3.13 or higher
-- uv (Python package manager)
-- An Anthropic API key (for Claude AI)
-- **For Windows**: Use Git Bash to run the application commands - [Download Git for Windows](https://git-scm.com/downloads/win)
-
-## Installation
-
-1. **Install uv** (if not already installed)
-   ```bash
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-   ```
-
-2. **Install Python dependencies**
-   ```bash
-   uv sync
-   ```
-
-3. **Set up environment variables**
-   
-   Create a `.env` file in the root directory:
-   ```bash
-   ANTHROPIC_API_KEY=your_anthropic_api_key_here
-   ```
-
-## Running the Application
-
-### Quick Start
-
-Use the provided shell script:
-```bash
-chmod +x run.sh
-./run.sh
-```
-
-### Manual Start
-
-```bash
-cd backend
-uv run uvicorn app:app --reload --port 8000
-```
-
-The application will be available at:
-- Web Interface: `http://localhost:8000`
-- API Documentation: `http://localhost:8000/docs`
+- **For RAG Chatbot & Data Analysis**: Python 3.13+, uv package manager, Anthropic API key
+- **For FRED Dashboard**: Node.js 18+, npm
+- **For Windows**: Use Git Bash for shell commands
 
 ## E-commerce Data Analysis
 
